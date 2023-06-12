@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF_8" />
+  <title>My first page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"
+    integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+</head>
+<body>
+  <div id="fps">FPS:</div>
+  <div>
+    <input type="color" name="color" value="#FFAAFF" />
+    <input
+      type="range"
+      min="0"
+      max="15"
+      value="3"
+      step="1"
+      class="slider"
+      id="myRange"
+    />
+    Red<br />
+  </div>
+  // style="position: fixed"
+  <div>
+    <form action="index.html" method="get">
+      <br />
+      <h2 style="color: rgb(93, 99, 11)"><p>Hello!</p></h2>
+      <textarea
+        cols="100"
+        rows="5"
+        name="Julia"
+        placeholder="Describe your opinion about this site."
+      ></textarea>
+      <br />
+      <input type="submit" name="save" value="Save" />
+      <input type="reset" name="res" value="Reset" />
+    </form>
+  </div>
+  <script type="module">
+    import { initGL } from "./main.js";
+    import { Camera } from "./camera.js";
+
+    /* import * as lib from "./main.js";*/
+    const gui = new dat.GUI();
+
+    const controls = {
+      type: "",
+      rotation: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+      color: 0xfaffff,
+    };
+    const presets = gui.add(controls, "type", ["cube", "obj"]).onChange(() => {
+      if (controls.type === "cube") {
+        const folder = gui.addFolder("Cube");
+        folder.add(controls.rotation, "x", 0, 360).onChange(() => {});
+        folder.add(controls.rotation, "y", 0, 360).onChange(() => {});
+        folder.add(controls.rotation, "z", 0, 360).onChange(() => {});
+      } else {
+      }
+    });
+
+    gui.addColor(controls, "color", 0xaaaaaa).onChange(() => {
+      ChangeCube(controls.rotation.x, controls.rotation.z, controls.rotation.y);
+    });
+
+    window.addEventListener("load", () => {
+      initGL();
+      /*
+      window.setInterval(() => {
+        Render();
+      }, 300);
+      */
+    });
+    window.onscroll = () => window.scroll(0, 0);
+    window.addEventListener("mousedown", (event) => {
+      Camera.responsemouseclick(event);
+    });
+    window.addEventListener("mouseup", (event) => {
+      Camera.responsemouseclick(event);
+    });
+    window.addEventListener("mousemove", (event) => {
+      Camera.responsemouse(event);
+    });
+    window.addEventListener("keyup", (event) => {
+      Camera.responsekeys(event);
+    });
+    window.addEventListener("keydown", (event) => {
+      Camera.responsekeys(event);
+    });
+    window.addEventListener("wheel", (event) => {
+      Camera.responsemousewheel(event);
+      event.preventDefault();
+    });
+  </script>
+  <div>
+    <canvas id="glCanvas" width="2000" height="2000"></canvas>
+  </div>
+</body>
