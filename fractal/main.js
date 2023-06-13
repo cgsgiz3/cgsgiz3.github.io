@@ -25,13 +25,13 @@ export function initGL(Timer) {
   let vs, fs;
 
   // Запрос на загрузку первого файла
-  const ft1 = fetch("/vert.glsl")
+  const ft1 = fetch("./vert.glsl")
     .then((res) => res.text()) // Стрелочная безымянная функция запустится после получение текста, из 'res' получаем текстовые данные
     .then((data) => {
       // Стрелочная безымянная функция запустится для обработки полученных на предыдущем этапе данных - 'data' это полученный текст
       vs = data; // Запоминаем полученный текст в глобальной переменной
     });
-  const ft2 = fetch("/frag.glsl")
+  const ft2 = fetch("./frag.glsl")
     .then((res) => res.text())
     .then((data) => {
       fs = data;
