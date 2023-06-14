@@ -1,6 +1,6 @@
 import { units } from "./units.js";
 import { plato } from "./plato.js";
-import { Timer } from "/timer.js";
+import { Timer } from "./timer.js";
 import { background } from "./background.js";
 
 let drawunits = units();
