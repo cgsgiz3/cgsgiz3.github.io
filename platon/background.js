@@ -1,7 +1,7 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-undef */
 import { units } from "./units.js";
-import { Camera } from "/camera.js";
+import { Camera } from "./camera.js";
 import { GetN, vec3 } from "./math.js";
 import { Timer } from "./timer.js";
 import { mtlCreate } from "./material.js";
