@@ -35,12 +35,8 @@ plato.init = () => {
     vec3(-1, 1, -1),
   ];
   let VertexIndices = [
-    0, 1, 2, 0, 2, 3, 
-    2, 3, 5, 3, 5, 6, 
-    6, 5, 7, 6, 7, 4, 
-    7, 4, 1, 4, 1, 0, 
-    0, 4, 6, 0, 6, 3, 
-    1, 7, 5, 1, 5, 2,
+    0, 1, 2, 0, 2, 3, 2, 3, 5, 3, 5, 6, 6, 5, 7, 6, 7, 4, 7, 4, 1, 4, 1, 0, 0,
+    4, 6, 0, 6, 3, 1, 7, 5, 1, 5, 2,
   ];
   let mtl = mtlCreate("Ruby");
   plato.cube.buffer = {
@@ -50,7 +46,11 @@ plato.init = () => {
   };
   plato.cube.uniform = {
     frameBuffer: () => {
-      return mulmatr3(matrtranslete(vec3(0, 10, 0)), matrrotateX(Timer.localTime * 100),Camera.vp).massiv;
+      return mulmatr3(
+        matrtranslete(vec3(0, 10, 0)),
+        matrrotateX(Timer.localTime * 100),
+        Camera.vp
+      ).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -121,7 +121,11 @@ plato.init = () => {
   };
   plato.icosahedron.uniform = {
     frameBuffer: () => {
-      return mulmatr3(matrtranslete(vec3(10, 0, 0)), matrrotateZ(Timer.localTime * 100),Camera.vp).massiv;
+      return mulmatr3(
+        matrtranslete(vec3(10, 0, 0)),
+        matrrotateZ(Timer.localTime * 100),
+        Camera.vp
+      ).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -163,7 +167,11 @@ plato.init = () => {
   };
   plato.tetrahedron.uniform = {
     frameBuffer: () => {
-      return mulmatr3(matrtranslete(vec3(5, 0, 5)), matrrotateZ(Timer.localTime * 81.1234),Camera.vp).massiv;
+      return mulmatr3(
+        matrtranslete(vec3(5, 0, 5)),
+        matrrotateZ(Timer.localTime * 81.1234),
+        Camera.vp
+      ).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -177,7 +185,7 @@ plato.init = () => {
     },
   };
   unitcreateprimitive(plato.tetrahedron);
-  /*octahedron*/ 
+  /*octahedron*/
   plato.octahedron = {};
   plato.octahedron.file = "./icosahedron";
   plato.octahedron.type = "trimesh";
@@ -197,17 +205,9 @@ plato.init = () => {
     0, //3
     0,
     0,
-    Math.sqrt(2 / 3), //4
+    -Math.sqrt(2 / 3), //4
   ];
-  VertexIndices = [
-    4, 2, 3,
-    4, 1, 2,
-    4, 1, 3,
-    0, 2, 3,
-    0, 1, 2,
-    0, 1, 3,
-    1, 2, 3
-  ];
+  VertexIndices = [4, 2, 3, 4, 1, 2, 4, 1, 3, 0, 2, 3, 0, 1, 2, 0, 1, 3];
   mtl = mtlCreate("Peweter");
   plato.octahedron.buffer = {
     in_pos: VertexPositions,

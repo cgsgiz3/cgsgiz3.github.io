@@ -5,6 +5,7 @@ precision highp float;
 out vec4 out_color;
 in vec2 color;
 uniform float time;
+uniform float IsJulia;
 
 
 vec2 mul( vec2 A, vec2 B )
@@ -33,8 +34,20 @@ vec3 Jul( vec2 A, vec2 B )
 void main()
 { 
   vec2 c = color;
-
-
-  out_color = vec4(Jul(c, c), 1);//vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
+  if (IsJulia == 0.0) 
+  {
+    out_color = vec4(Jul(c, vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
+  }
+  else 
+  {
+    out_color = vec4(Jul(c, c), 1);//vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
+  }
+  //if (IsJulia)
+  //{
+  //  out_color = vec4(Jul(c, vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
+  //}else {
+  //  out_color = vec4(Jul(c, c), 1);//vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
+  //} 
+  //out_color = vec4(Jul(c, vec2(0.35 + 0.08 * sin(time + 3.0), 0.39 + 0.08 * sin(time * 1.1))), 1);
   //out_color = vec4(c, 0, 1, 1);
 }

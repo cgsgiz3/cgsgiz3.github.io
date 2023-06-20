@@ -19,6 +19,8 @@
     />
     Red<br />
   </div>
+  <input type="radio" name="Mondelbrot" value="1" checked />Julia
+  <input type="radio" name="Mondelbrot" value="0" id="IsJulia" />Mondelbrot
   <div style="position: fixed">
     <form action="index.html" method="get">
       <br />
@@ -35,22 +37,18 @@
     </form>
   </div>
   <script type="module">
-    import {
-      initGL,
-      MouseWheel,
-      MouseMove,
-    } from "./main.js";
-    
+    import { initGL, MouseWheel, MouseMove } from "./main.js";
     window.addEventListener("load", () => {
       initGL();
       window.addEventListener("wheel", (event) => {
         event.preventDefault();
         MouseWheel(event);
       });
-      document.getElementById("glCanvas").addEventListener("mousemove", (event) => {
-        MouseMove(event);
-      });
-
+      document
+        .getElementById("glCanvas")
+        .addEventListener("mousemove", (event) => {
+          MouseMove(event);
+        });
     });
   </script>
   <div>
