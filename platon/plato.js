@@ -5,6 +5,7 @@ import {
   matrrotateY,
   matrrotateZ,
   mulmatr,
+  matrtranslete,
 } from "./math.js";
 import { mtlCreate } from "./material.js";
 import { Timer } from "./timer.js";
@@ -21,8 +22,7 @@ plato.init = () => {
   plato.cube = {};
   plato.cube.file = "./icosahedron";
   plato.cube.type = "trimesh";
-  plato.cube.material = mtlCreate("Ruby");
-  plato.cube.idCanvas = "glCanvas1";
+  plato.cube.idCanvas = "glCanvas";
   //plato.cube.texture = {Tex1: "plato.png"}
   let VertexPositions = [
     vec3(1, 1, 1),
@@ -42,7 +42,7 @@ plato.init = () => {
     0, 4, 6, 0, 6, 3, 
     1, 7, 5, 1, 5, 2,
   ];
-  let mtl = mtlCreate("Bronze");
+  let mtl = mtlCreate("Ruby");
   plato.cube.buffer = {
     in_pos: VertexPositions,
     index: VertexIndices,
@@ -50,7 +50,7 @@ plato.init = () => {
   };
   plato.cube.uniform = {
     frameBuffer: () => {
-      return Camera.vp.massiv;
+      return mulmatr3(matrtranslete(vec3(0, 10, 0)), matrrotateX(Timer.localTime * 100),Camera.vp).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -68,8 +68,8 @@ plato.init = () => {
   plato.icosahedron = {};
   plato.icosahedron.file = "./icosahedron";
   plato.icosahedron.type = "trimesh";
-  plato.icosahedron.material = mtlCreate("Ruby");
-  plato.icosahedron.idCanvas = "glCanvas2";
+  plato.icosahedron.material = mtlCreate("Silver");
+  plato.icosahedron.idCanvas = "glCanvas";
   VertexPositions = [
     PH,
     0,
@@ -113,7 +113,7 @@ plato.init = () => {
     8, 11, 6, 11, 3, 8, 10, 9, 8, 11, 9, 10, 9, 5, 0, 5, 10, 0, 2, 5, 7, 5, 9,
     7, 9, 11, 3, 11, 7, 3, 2, 7, 7, 2, 5,
   ];
-  mtl = mtlCreate("Bronze");
+  mtl = mtlCreate("Silver");
   plato.icosahedron.buffer = {
     in_pos: VertexPositions,
     index: VertexIndices,
@@ -121,7 +121,7 @@ plato.init = () => {
   };
   plato.icosahedron.uniform = {
     frameBuffer: () => {
-      return mulmatr(Camera.vp, matrrotateY(Timer.localTime));
+      return mulmatr3(matrtranslete(vec3(10, 0, 0)), matrrotateZ(Timer.localTime * 100),Camera.vp).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -139,8 +139,7 @@ plato.init = () => {
   plato.tetrahedron = {};
   plato.tetrahedron.file = "./icosahedron";
   plato.tetrahedron.type = "trimesh";
-  plato.tetrahedron.material = mtlCreate("Ruby");
-  plato.tetrahedron.idCanvas = "glCanvas3";
+  plato.tetrahedron.idCanvas = "glCanvas";
   VertexPositions = [
     0,
     0,
@@ -156,7 +155,7 @@ plato.init = () => {
     0, //1
   ];
   VertexIndices = [0, 2, 3, 0, 1, 2, 0, 1, 3, 1, 2, 3];
-  mtl = mtlCreate("Bronze");
+  mtl = mtlCreate("Jade");
   plato.tetrahedron.buffer = {
     in_pos: VertexPositions,
     index: VertexIndices,
@@ -164,7 +163,7 @@ plato.init = () => {
   };
   plato.tetrahedron.uniform = {
     frameBuffer: () => {
-      return mulmatr(Camera.vp, matrrotateX(Timer.localTime));
+      return mulmatr3(matrtranslete(vec3(5, 0, 5)), matrrotateZ(Timer.localTime * 81.1234),Camera.vp).massiv;
     },
     materialBuffer: mtl,
     cameraBuffer: () => {
@@ -178,10 +177,64 @@ plato.init = () => {
     },
   };
   unitcreateprimitive(plato.tetrahedron);
+  /*octahedron*/ 
+  plato.octahedron = {};
+  plato.octahedron.file = "./icosahedron";
+  plato.octahedron.type = "trimesh";
+  plato.octahedron.idCanvas = "glCanvas";
+  VertexPositions = [
+    0,
+    0,
+    Math.sqrt(2 / 3), //0
+    Math.sqrt(1 / 3),
+    0,
+    0, //1
+    -Math.sqrt(1 / 12),
+    0.5,
+    0, //2
+    -Math.sqrt(1 / 12),
+    -0.5,
+    0, //3
+    0,
+    0,
+    Math.sqrt(2 / 3), //4
+  ];
+  VertexIndices = [
+    4, 2, 3,
+    4, 1, 2,
+    4, 1, 3,
+    0, 2, 3,
+    0, 1, 2,
+    0, 1, 3,
+    1, 2, 3
+  ];
+  mtl = mtlCreate("Peweter");
+  plato.octahedron.buffer = {
+    in_pos: VertexPositions,
+    index: VertexIndices,
+    in_normal: autonormals(VertexPositions, VertexIndices, "trimesh"),
+  };
+  plato.octahedron.uniform = {
+    frameBuffer: () => {
+      return Camera.vp.massiv;
+    },
+    materialBuffer: mtl,
+    cameraBuffer: () => {
+      return [
+        [...Camera.loc.array(), 1],
+        [...Camera.dir.array(), 1],
+        [...Camera.right.array(), 1],
+        [...Camera.up.array(), 1],
+        [Timer.localTime, Timer.globalDeltaTime, 1, 1],
+      ];
+    },
+  };
+  unitcreateprimitive(plato.octahedron);
 };
 plato.render = () => {
   plato.cube.draw();
   plato.icosahedron.draw();
   plato.tetrahedron.draw();
+  plato.octahedron.draw();
 };
 export { plato };

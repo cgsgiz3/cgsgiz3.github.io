@@ -42,14 +42,11 @@ export class newvec3 {
     return this;
   };
   translete = () => {
-    this.massiv = mat4();
+    let mtr = mat4();
 
-    this.massiv[0] = [1, 0, 0, 0];
-    this.massiv[1] = [0, 1, 0, 0];
-    this.massiv[2] = [0, 0, 1, 0];
-    this.massiv[3] = [this.x, this.y, this.z, 1];
+    mtr[3] = [this.x, this.y, this.z, 1];
 
-    return this.massiv;
+    return mtr;
   };
   normalize = () => {
     let len = this.length();
@@ -329,6 +326,14 @@ export function mulmatr(mtr1 = mat4(), mtr2 = mat4()) {
   mtr.massiv[3][3] += mtr1.massiv[3][1] * mtr2.massiv[1][3];
   mtr.massiv[3][3] += mtr1.massiv[3][2] * mtr2.massiv[2][3];
   mtr.massiv[3][3] += mtr1.massiv[3][3] * mtr2.massiv[3][3];
+  return mtr;
+}
+export function matrtranslete(v = vec3())
+{
+  let mtr = mat4();
+  mtr.massiv[3][0] = v.x;
+  mtr.massiv[3][1] = v.y;
+  mtr.massiv[3][2] = v.z;
   return mtr;
 }
 export class newmat4 {
