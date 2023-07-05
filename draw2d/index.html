@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF_8" />
+  <title>My first page</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="fps">FPS:</div>
+  <canvas id="glCanvas" width="1000" height="1000"></canvas>
+  <textarea
+    id="fs"
+    cols="100"
+    rows="63"
+  >
+ </textarea>
+  <textarea
+    id="vs"
+    cols="100"
+    rows="64"
+  >
+  </textarea>
+  <input type="submit" id="save" value="save">
+  <script type="module">
+    import { initGL } from "./main.js";
+    window.addEventListener("load", () => {
+      initGL();
+    });
+  </script>
+</body>
